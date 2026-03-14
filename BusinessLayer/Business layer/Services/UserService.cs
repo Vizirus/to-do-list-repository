@@ -18,7 +18,7 @@ public class UserService : IUserService
 
     public async Task<bool> AddAsync(UserModel model)
     {
-        if (model is not null && model.Id != 0 && !string.IsNullOrEmpty(model.Username) && !string.IsNullOrEmpty(model.Email) && !string.IsNullOrEmpty(model.PasswordHash) && DateTime.Compare(model.CreatedDate, new DateTime(1920, 1, 1, 1, 1, 1, kind: DateTimeKind.Utc)) > 0)
+        if (model is not null && model.Id > 0 && !string.IsNullOrEmpty(model.Username) && !string.IsNullOrEmpty(model.Email) && !string.IsNullOrEmpty(model.PasswordHash) && DateTime.Compare(model.CreatedDate, new DateTime(1920, 1, 1, 1, 1, 1, kind: DateTimeKind.Utc)) > 0 && DateTime.Compare(model.CreatedDate, DateTime.Now) < 0)
         {
             await this.unitOfWork.userRepository.AddAsync(this.mapper.Map<DataLayer.DataLayer.Entities.User>(model));
             await this.unitOfWork.SaveAsync();
@@ -60,7 +60,7 @@ public class UserService : IUserService
 
     public async Task<bool> UpdateAsync(UserModel model)
     {
-        if (model is not null && model.Id != 0 && !string.IsNullOrEmpty(model.Username) && !string.IsNullOrEmpty(model.Email) && !string.IsNullOrEmpty(model.PasswordHash) && DateTime.Compare(model.CreatedDate, new DateTime(1920, 1, 1, 1, 1, 1, kind: DateTimeKind.Utc)) > 0)
+        if (model is not null && model.Id > 0 && !string.IsNullOrEmpty(model.Username) && !string.IsNullOrEmpty(model.Email) && !string.IsNullOrEmpty(model.PasswordHash) && DateTime.Compare(model.CreatedDate, new DateTime(1920, 1, 1, 1, 1, 1, kind: DateTimeKind.Utc)) > 0 && DateTime.Compare(model.CreatedDate, DateTime.Now) < 0)
         {
             this.unitOfWork.userRepository.Update(this.mapper.Map<DataLayer.DataLayer.Entities.User>(model));
             await this.unitOfWork.SaveAsync();

@@ -4,7 +4,7 @@ namespace WebApi.BusinessLayer.Models;
 
 public class TaskModel
 {
-    public TaskModel(int id, int listId, string taskName, string taskDescription, DateTime taskStartDate, DateTime taskFinishDate, int statusId, int assigndUserId, int taskStatusIds)
+    public TaskModel(int id, int listId, string taskName, string taskDescription, DateTime taskStartDate, DateTime taskFinishDate, int statusId, int assigndUserId)
     {
         this.Id = id;
         this.ListId = listId;
@@ -14,7 +14,6 @@ public class TaskModel
         this.TaskFinishDate = taskFinishDate;
         this.StatusId = statusId;
         this.AssigndUserId = assigndUserId;
-        this.TaskStatusIds = taskStatusIds;
     }
 
     public int Id { get; set; }
@@ -32,8 +31,6 @@ public class TaskModel
     public int StatusId { get; set; }
 
     public int AssigndUserId { get; set; }
-
-    public int TaskStatusIds { get; set; }
 
     public IList<TaskComments> TaskComments { get; } = new List<TaskComments>();
 

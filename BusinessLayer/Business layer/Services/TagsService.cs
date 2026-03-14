@@ -20,7 +20,7 @@ public class TagsService : ITagsService
 
     public async Task<bool> AddAsync(TagsModel model)
     {
-        if (model is not null && model.Id != 0 && string.IsNullOrEmpty(model.Name))
+        if (model is not null && model.Id != 0 && !string.IsNullOrEmpty(model.Name))
         {
             await this.unitOfWork.tagsRepository.AddAsync(this.mapper.Map<Tags>(model));
             await this.unitOfWork.SaveAsync();
@@ -110,7 +110,7 @@ public class TagsService : ITagsService
 
     public async Task<bool> UpdateAsync(TagsModel model)
     {
-        if (model is not null && model.Id != 0 && string.IsNullOrEmpty(model.Name))
+        if (model is not null && model.Id != 0 && !string.IsNullOrEmpty(model.Name))
         {
             this.unitOfWork.tagsRepository.Update(this.mapper.Map<Tags>(model));
             await this.unitOfWork.SaveAsync();

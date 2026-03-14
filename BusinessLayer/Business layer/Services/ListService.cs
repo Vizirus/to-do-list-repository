@@ -22,7 +22,8 @@ public class ListService : IListService
             model.Id > 0 &&
             !string.IsNullOrEmpty(model.ListName) &&
             model.CreatedByUser > 0 &&
-            DateTime.Compare(model.CreatedDate, new DateTime(1920, 1, 1, 1, 1, 1, kind: DateTimeKind.Utc)) > 0)
+            DateTime.Compare(model.CreatedDate, new DateTime(1920, 1, 1, 1, 1, 1, kind: DateTimeKind.Utc)) > 0 &&
+            DateTime.Compare(model.CreatedDate, DateTime.Now) < 0)
         {
             await this.unitOfWork.listsRepository.AddAsync(this.mapper.Map<DataLayer.DataLayer.Entities.Lists>(model));
             await this.unitOfWork.SaveAsync();
@@ -110,7 +111,8 @@ public class ListService : IListService
             model.Id > 0 &&
             !string.IsNullOrEmpty(model.ListName) &&
             model.CreatedByUser > 0 &&
-            DateTime.Compare(model.CreatedDate, new DateTime(1920, 1, 1, 1, 1, 1, kind: DateTimeKind.Utc)) > 0)
+            DateTime.Compare(model.CreatedDate, new DateTime(1920, 1, 1, 1, 1, 1, kind: DateTimeKind.Utc)) > 0 &&
+            DateTime.Compare(model.CreatedDate, DateTime.Now) < 0)
         {
             this.unitOfWork.listsRepository.Update(this.mapper.Map<DataLayer.DataLayer.Entities.Lists>(model));
             await this.unitOfWork.SaveAsync();

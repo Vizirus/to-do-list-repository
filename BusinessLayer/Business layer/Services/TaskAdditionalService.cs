@@ -23,7 +23,8 @@ public class TaskAdditionalService : ITaskAdditionalService
             model.TaskId > 0 &&
             model.UserId > 0 &&
             !string.IsNullOrEmpty(model.CommentText) &&
-            DateTime.Compare(model.CreatedDate, new DateTime(1920, 1, 1, 1, 1, 1, kind: DateTimeKind.Utc)) > 0)
+            DateTime.Compare(model.CreatedDate, new DateTime(1920, 1, 1, 1, 1, 1, kind: DateTimeKind.Utc)) > 0 &&
+            DateTime.Compare(model.CreatedDate, DateTime.Now) < 0)
         {
             await this.unitOfWork.tasksCommentsRepository.AddAsync(this.mapper.Map<DataLayer.DataLayer.Entities.TaskComments>(model));
             await this.unitOfWork.SaveAsync();
@@ -114,7 +115,8 @@ public class TaskAdditionalService : ITaskAdditionalService
             model.TaskId > 0 &&
             model.UserId > 0 &&
             !string.IsNullOrEmpty(model.CommentText) &&
-            DateTime.Compare(model.CreatedDate, new DateTime(1920, 1, 1, 1, 1, 1, kind: DateTimeKind.Utc)) > 0)
+            DateTime.Compare(model.CreatedDate, new DateTime(1920, 1, 1, 1, 1, 1, kind: DateTimeKind.Utc)) > 0 &&
+            DateTime.Compare(model.CreatedDate, DateTime.Now) < 0)
         {
             this.unitOfWork.tasksCommentsRepository.Update(this.mapper.Map<DataLayer.DataLayer.Entities.TaskComments>(model));
             await this.unitOfWork.SaveAsync();
