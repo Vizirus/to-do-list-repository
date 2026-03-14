@@ -3,7 +3,7 @@ using WebApi.BusinessLayer.Models;
 
 
 namespace BusinessLayer.BusinessLayer.Interfaces;
-internal interface IListService : IModelService<ListsModel>
+public interface IListService : IModelService<ListsModel>
 {
     Task<bool> AddSahredListAsync(SharedListsModel model);
 

@@ -1,6 +1,6 @@
 namespace BusinessLayer.BusinessLayer.Interfaces;
 
-internal interface IModelService<TModel>
+public interface IModelService<TModel>
     where TModel : class
 {
     Task<bool> AddAsync(TModel model);

@@ -2,6 +2,9 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using DataLayer.DataLayer.ContextData;
 using DataLayer.DataLayer.Interfaces;
+using BusinessLayer.BusinessLayer.Interfaces;
+using BusinessLayer.BusinessLayer.Services;
+using WebApi.BusinessLayer;
 
 namespace WebApi;
 
@@ -19,6 +22,12 @@ internal static class Program
         _ = builder.Services.AddEndpointsApiExplorer();
         _ = builder.Services.AddSwaggerGen();
         _ = builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+        _ = builder.Services.AddScoped<ITaskService, TaskService>();
+        _ = builder.Services.AddScoped<IListService, ListService>();
+        _ = builder.Services.AddScoped<ITagsService, TagsService>();
+        _ = builder.Services.AddScoped<ITaskAdditionalService, TaskAdditionalService>();
+        _ = builder.Services.AddScoped<IUserService, UserService>();
+        _ = builder.Services.AddAutoMapper(cfg => cfg.AddProfile<BusinessLayerProfile>());
 
         var app = builder.Build();
 

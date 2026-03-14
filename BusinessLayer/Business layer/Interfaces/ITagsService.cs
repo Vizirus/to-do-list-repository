@@ -2,7 +2,7 @@ using WebApi.BusinessLayer.Models;
 
 namespace BusinessLayer.BusinessLayer.Interfaces;
 
-internal interface ITagsService : IModelService<TagsModel>
+public interface ITagsService : IModelService<TagsModel>
 {
     // TaskTags CRUD
     Task<bool> AddTaskTagAsync(TaskTagsModel model);

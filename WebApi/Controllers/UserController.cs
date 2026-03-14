@@ -1,0 +1,79 @@
+using BusinessLayer.BusinessLayer.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using WebApi.BusinessLayer.Models;
+
+namespace WebApi.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class UserController : ControllerBase
+{
+    private readonly IUserService service;
+
+    public UserController(IUserService service)
+    {
+        this.service = service;
+    }
+
+    [HttpGet]
+    [Route("{id:int}")]
+    public async Task<IActionResult> GetById(int id)
+    {
+        var result = await this.service.GetByIdAsync(id);
+        if (result == null)
+        {
+            return this.NotFound();
+        }
+
+        return this.Ok(result);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        var result = await this.service.GetAllAsync();
+        if (result == null)
+        {
+            return this.NotFound();
+        }
+
+        return this.Ok(result);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Add([FromBody] UserModel model)
+    {
+        var result = await this.service.AddAsync(model);
+        if (!result)
+        {
+            return this.BadRequest("Validation failed!");
+        }
+
+        return this.Ok("Added new user!");
+    }
+
+    [HttpPut]
+    public async Task<IActionResult> Update([FromBody] UserModel model)
+    {
+        var result = await this.service.UpdateAsync(model);
+        if (!result)
+        {
+            return this.BadRequest("Validation failed!");
+        }
+
+        return this.Ok("Updated user!");
+    }
+
+    [HttpDelete]
+    [Route("{id:int}")]
+    public async Task<IActionResult> DeleteById(int id)
+    {
+        var result = await this.service.DeleteAsync(id);
+        if (!result)
+        {
+            return this.NotFound();
+        }
+
+        return this.Ok(result);
+    }
+}

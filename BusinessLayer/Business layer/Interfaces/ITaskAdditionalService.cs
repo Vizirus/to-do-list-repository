@@ -1,7 +1,7 @@
 using WebApi.BusinessLayer.Models;
 
 namespace BusinessLayer.BusinessLayer.Interfaces;
-internal interface ITaskAdditionalService : IModelService<TaskCommentsModel>
+public interface ITaskAdditionalService : IModelService<TaskCommentsModel>
 {
     // TaskStatuses CRUD
     Task<bool> AddTaskStatusAsync(TaskStatusesModel model);
