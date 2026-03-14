@@ -50,6 +50,25 @@ public class ListServiceValidationTests
         unitOfWork.Verify(u => u.SaveAsync(), Times.Never);
         mapper.VerifyNoOtherCalls();
     }
+
+    [Fact]
+    public async System.Threading.Tasks.Task AddAsyncListWithZeroIdShouldBeRejected()
+    {
+        var listsRepo = new Mock<IListsRepository>(MockBehavior.Strict);
+        var unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
+        unitOfWork.SetupGet(u => u.listsRepository).Returns(listsRepo.Object);
+
+        var mapper = new Mock<IMapper>(MockBehavior.Strict);
+        var service = new ListService(unitOfWork.Object, mapper.Object);
+
+        var model = new ListsModel(0, "Work", 1, DateTime.UtcNow);
+        var result = await service.AddAsync(model);
+
+        Assert.False(result);
+        listsRepo.VerifyNoOtherCalls();
+        unitOfWork.Verify(u => u.SaveAsync(), Times.Never);
+        mapper.VerifyNoOtherCalls();
+    }
 }
 
 

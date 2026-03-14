@@ -73,6 +73,25 @@ public class TaskAdditionalServiceValidationTests
         unitOfWork.Verify(u => u.SaveAsync(), Times.Never);
         mapper.VerifyNoOtherCalls();
     }
+
+    [Fact]
+    public async System.Threading.Tasks.Task AddAsyncCommentWithZeroIdShouldBeRejected()
+    {
+        var commentsRepo = new Mock<ITaskCommentsRepository>(MockBehavior.Strict);
+        var unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
+        unitOfWork.SetupGet(u => u.tasksCommentsRepository).Returns(commentsRepo.Object);
+
+        var mapper = new Mock<IMapper>(MockBehavior.Strict);
+        var service = new TaskAdditionalService(unitOfWork.Object, mapper.Object);
+
+        var model = new TaskCommentsModel(0, taskId: 1, userId: 1, commentText: "Hi", createdDate: DateTime.UtcNow);
+        var result = await service.AddAsync(model);
+
+        Assert.False(result);
+        commentsRepo.VerifyNoOtherCalls();
+        unitOfWork.Verify(u => u.SaveAsync(), Times.Never);
+        mapper.VerifyNoOtherCalls();
+    }
 }
 
 

@@ -100,4 +100,31 @@ public class TaskServiceValidationTests
         tasksRepo.Verify(r => r.Update(It.IsAny<TaskEntity>()), Times.Never);
         unitOfWork.Verify(u => u.SaveAsync(), Times.Never);
     }
+    [Fact]
+    public async Task AddAsyncTaskWithZeroIdShouldBeRejected()
+    {
+        var tasksRepo = new Mock<ITaskRepository>(MockBehavior.Strict);
+        var unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
+        unitOfWork.SetupGet(u => u.tasksRepository).Returns(tasksRepo.Object);
+
+        var mapper = new Mock<IMapper>(MockBehavior.Strict);
+        var service = new TaskService(unitOfWork.Object, mapper.Object);
+
+        var model = new TaskModel(
+            id: 0,
+            listId: 1,
+            taskName: "Do thing",
+            taskDescription: "Desc",
+            taskStartDate: DateTime.UtcNow,
+            taskFinishDate: DateTime.UtcNow.AddDays(1),
+            statusId: 1,
+            assigndUserId: 1);
+
+        var result = await service.AddAsync(model);
+
+        Assert.False(result);
+        tasksRepo.VerifyNoOtherCalls();
+        unitOfWork.Verify(u => u.SaveAsync(), Times.Never);
+        mapper.VerifyNoOtherCalls();
+    }
 }

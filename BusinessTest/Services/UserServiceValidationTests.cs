@@ -73,4 +73,22 @@ public class UserServiceValidationTests
         userRepo.Verify(r => r.Update(It.IsAny<User>()), Times.Never);
         unitOfWork.Verify(u => u.SaveAsync(), Times.Never);
     }
+    [Fact]
+    public async System.Threading.Tasks.Task AddAsyncUserWithZeroIdShouldBeRejected()
+    {
+        var userRepo = new Mock<IUserRepository>(MockBehavior.Strict);
+        var unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
+        unitOfWork.SetupGet(u => u.userRepository).Returns(userRepo.Object);
+
+        var mapper = new Mock<IMapper>(MockBehavior.Strict);
+        var service = new UserService(unitOfWork.Object, mapper.Object);
+
+        var model = new UserModel(0, "alice", "alice@example.com", "hash", DateTime.UtcNow);
+        var result = await service.AddAsync(model);
+
+        Assert.False(result);
+        userRepo.VerifyNoOtherCalls();
+        unitOfWork.Verify(u => u.SaveAsync(), Times.Never);
+        mapper.VerifyNoOtherCalls();
+    }
 }

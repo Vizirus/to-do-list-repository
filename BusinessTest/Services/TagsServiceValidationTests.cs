@@ -77,4 +77,22 @@ public class TagsServiceValidationTests
         tagsRepo.Verify(r => r.Update(It.IsAny<Tags>()), Times.Never);
         unitOfWork.Verify(u => u.SaveAsync(), Times.Never);
     }
+    [Fact]
+    public async System.Threading.Tasks.Task AddAsyncTagWithZeroIdShouldBeRejected()
+    {
+        var tagsRepo = new Mock<ITagsRepository>(MockBehavior.Strict);
+        var unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
+        unitOfWork.SetupGet(u => u.tagsRepository).Returns(tagsRepo.Object);
+
+        var mapper = new Mock<IMapper>(MockBehavior.Strict);
+        var service = new TagsService(unitOfWork.Object, mapper.Object);
+
+        var model = new TagsModel(0, "Urgent");
+        var result = await service.AddAsync(model);
+
+        Assert.False(result);
+        tagsRepo.VerifyNoOtherCalls();
+        unitOfWork.Verify(u => u.SaveAsync(), Times.Never);
+        mapper.VerifyNoOtherCalls();
+    }
 }
