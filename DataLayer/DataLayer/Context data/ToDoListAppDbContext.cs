@@ -70,9 +70,9 @@ public class ToDoListAppDbContext : DbContext
                 ListId = 1,
                 TaskName = "Prepare report",
                 TaskDescription = "Prepare monthly financial report",
-                TaskStartDate = new DateOnly(2026, 3, 10),
-                TaskFinishDate = new DateOnly(2026, 3, 15),
-                TaskStatusIds = 2,
+                TaskStartDate = new DateTime(2026, 3, 10, 1, 1, 1, DateTimeKind.Utc),
+                TaskFinishDate = new DateTime(2026, 3, 15, 1, 1, 1, DateTimeKind.Utc),
+                StatusId = 2,
                 AssigndUserId = 1
             },
             new Entities.Task
@@ -81,9 +81,9 @@ public class ToDoListAppDbContext : DbContext
                 ListId = 1,
                 TaskName = "Fix login bug",
                 TaskDescription = "Resolve authentication issue",
-                TaskStartDate = new DateOnly(2026, 3, 11),
-                TaskFinishDate = new DateOnly(2026, 3, 12),
-                TaskStatusIds = 1,
+                TaskStartDate = new DateTime(2026, 3, 11, 1, 1, 1, DateTimeKind.Utc),
+                TaskFinishDate = new DateTime(2026, 3, 12, 1, 1, 1, DateTimeKind.Utc),
+                StatusId = 1,
                 AssigndUserId = 2
             },
             new Entities.Task
@@ -92,9 +92,9 @@ public class ToDoListAppDbContext : DbContext
                 ListId = 2,
                 TaskName = "Buy groceries",
                 TaskDescription = "Milk, bread, vegetables",
-                TaskStartDate = new DateOnly(2026, 3, 12),
-                TaskFinishDate = new DateOnly(2026, 3, 12),
-                TaskStatusIds = 1,
+                TaskStartDate = new DateTime(2026, 3, 12, 1, 1, 1, DateTimeKind.Utc),
+                TaskFinishDate = new DateTime(2026, 3, 12, 1, 1, 1, DateTimeKind.Utc),
+                StatusId = 1,
                 AssigndUserId = 1
             }
         );

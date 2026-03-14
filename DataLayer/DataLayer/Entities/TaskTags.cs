@@ -10,6 +10,7 @@ public class TaskTags : BaseEntity
     [ForeignKey("Tag")]
     public int TagId { get; set; }
 
+    //Binding properties. Igonre when writing tests
     public Tags? Tag { get; set; }
 
     public Task? Task { get; set; }

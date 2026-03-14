@@ -1,4 +1,4 @@
-﻿using DataLayer.DataLayer.Repositories;
+using DataLayer.DataLayer.Repositories;
 using DataTest.TestInfrastructure;
 using Microsoft.EntityFrameworkCore;
 using TaskEntity = DataLayer.DataLayer.Entities.Task;
@@ -8,7 +8,7 @@ namespace DataTest.Repositories;
 public class TasksRepositoryTests
 {
     [Fact]
-    public async System.Threading.Tasks.Task AddAsyncPersistsEntity()
+    public async Task AddAsyncPersistsEntity()
     {
         var options = InMemoryDb.CreateOptions(DatabaseName.ForTest(nameof(TasksRepositoryTests)));
 
@@ -21,9 +21,8 @@ public class TasksRepositoryTests
                 ListId = 1,
                 TaskName = "Test task",
                 TaskDescription = "Desc",
-                TaskStartDate = new DateOnly(2026, 3, 14),
-                TaskFinishDate = new DateOnly(2026, 3, 15),
-                TaskStatusIds = 1,
+                TaskStartDate = new DateTime(2026, 3, 14, 1, 1, 1, DateTimeKind.Utc),
+                TaskFinishDate = new DateTime(2026, 3, 15, 1, 1, 1, DateTimeKind.Utc),
                 StatusId = 1,
                 AssigndUserId = 1,
             };
@@ -42,7 +41,7 @@ public class TasksRepositoryTests
     }
 
     [Fact]
-    public async System.Threading.Tasks.Task UpdatePersistsChanges()
+    public async Task UpdatePersistsChanges()
     {
         var options = InMemoryDb.CreateOptions(DatabaseName.ForTest(nameof(TasksRepositoryTests)));
 
@@ -55,9 +54,8 @@ public class TasksRepositoryTests
                 ListId = 1,
                 TaskName = "Before",
                 TaskDescription = "Desc",
-                TaskStartDate = new DateOnly(2026, 3, 14),
-                TaskFinishDate = new DateOnly(2026, 3, 15),
-                TaskStatusIds = 1,
+                TaskStartDate = new DateTime(2026, 3, 14, 1, 1, 1, DateTimeKind.Utc),
+                TaskFinishDate = new DateTime(2026, 3, 15, 1, 1, 1, DateTimeKind.Utc),
                 StatusId = 1,
                 AssigndUserId = 1,
             };
@@ -80,7 +78,7 @@ public class TasksRepositoryTests
     }
 
     [Fact]
-    public async System.Threading.Tasks.Task DeleteByIdAsyncRemovesEntity()
+    public async Task DeleteByIdAsyncRemovesEntity()
     {
         var options = InMemoryDb.CreateOptions(DatabaseName.ForTest(nameof(TasksRepositoryTests)));
 
@@ -93,9 +91,8 @@ public class TasksRepositoryTests
                 ListId = 1,
                 TaskName = "To delete",
                 TaskDescription = "Desc",
-                TaskStartDate = new DateOnly(2026, 3, 14),
-                TaskFinishDate = new DateOnly(2026, 3, 15),
-                TaskStatusIds = 1,
+                TaskStartDate = new DateTime(2026, 3, 14, 1, 1, 1, DateTimeKind.Utc),
+                TaskFinishDate = new DateTime(2026, 3, 15, 1, 1, 1, DateTimeKind.Utc),
                 StatusId = 1,
                 AssigndUserId = 1,
             };
@@ -117,7 +114,7 @@ public class TasksRepositoryTests
     }
 
     [Fact]
-    public async System.Threading.Tasks.Task DeleteByIdAsyncUnknownIdReturnsFalse()
+    public async Task DeleteByIdAsyncUnknownIdReturnsFalse()
     {
         var options = InMemoryDb.CreateOptions(DatabaseName.ForTest(nameof(TasksRepositoryTests)));
 

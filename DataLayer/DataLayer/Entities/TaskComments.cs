@@ -14,6 +14,7 @@ public class TaskComments : BaseEntity
 
     public DateTime CreatedDate { get; set; }
 
+    //Binding properties. Igonre when writing tests
     public User? User { get; set; }
 
     public Task? Task { get; set; }

@@ -13,6 +13,7 @@ public class SharedLists : BaseEntity
     [ForeignKey("User2")]
     public int AssignedUserId { get; set; }
 
+    //Binding properties. Igonre when writing tests
     public User? User { get; set; }
 
     public User? User2 { get; set; }

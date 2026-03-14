@@ -10,5 +10,10 @@ public class Lists : BaseEntity
 
     public DateTime CreatedDate { get; set; }
 
+    //Binding properties. Igonre when writing tests
     public User? User { get; set; }
+
+    public IList<Task>? Tasks { get; set; }
+
+    public IList<SharedLists>? SharedLists { get; set; }
 }

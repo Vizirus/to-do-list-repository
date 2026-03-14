@@ -15,10 +15,10 @@ public class Task : BaseEntity
     public string TaskDescription { get; set; } = string.Empty;
 
     [Column]
-    public DateOnly TaskStartDate { get; set; }
+    public DateTime TaskStartDate { get; set; }
 
     [Column]
-    public DateOnly TaskFinishDate { get; set; }
+    public DateTime TaskFinishDate { get; set; }
 
     [Column]
     [ForeignKey("TaskStatusIds")]
@@ -28,9 +28,14 @@ public class Task : BaseEntity
     [ForeignKey("UserId")]
     public int AssigndUserId { get; set; }
 
-    public int TaskStatusIds { get; set; }
+    //Binding properties. Igonre when writing tests
+    public TaskStatuses? TaskStatusIds { get; set; }
 
     public User? UserId { get; set; }
 
     public Lists? ToDoListId { get; set; }
+
+    public IList<TaskComments>? TaskComments { get; set; }
+
+    public IList<TaskTags>? TaskTags { get; set; }
 }
