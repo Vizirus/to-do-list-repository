@@ -6,7 +6,7 @@ namespace WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class TaskAdditionalController : Controller
+public class TaskAdditionalController : ControllerBase
 {
     private readonly ITaskAdditionalService service;
 

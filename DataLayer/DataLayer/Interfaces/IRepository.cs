@@ -12,7 +12,7 @@ public interface IRepository<TEntity>
 
     void Delete(TEntity entity);
 
-    System.Threading.Tasks.Task<bool> DeleteByIdAsync(int id);
+    Task<bool> DeleteByIdAsync(int id);
 
     void Update(TEntity entity);
 }

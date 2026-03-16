@@ -1,0 +1,17 @@
+﻿@model SearchViewModel
+@{
+    ViewData["Title"] = "Search";
+}
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Search tasks</h4>
+        <form asp-action="Results" method="get" class="mt-3">
+            <div class="input-group">
+                <input class="form-control" type="text" name="q" value="@Model.Query" placeholder="Search by name or description..." />
+                <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+        </form>
+        <div class="small text-muted mt-2">Search is limited to lists you can access.</div>
+    </div>
+</div>

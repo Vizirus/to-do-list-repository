@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - To-Do List</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="app-topbar border-bottom">
+        <div class="container-fluid d-flex align-items-center justify-content-between py-2">
+            <a class="app-brand" asp-controller="Home" asp-action="Index">To-Do List</a>
+
+            <div class="d-flex align-items-center gap-2">
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <span class="text-muted small">@User.Identity!.Name</span>
+                    <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                        @Html.AntiForgeryToken()
+                        <button class="btn btn-sm btn-outline-secondary" type="submit">Logout</button>
+                    </form>
+                }
+                else
+                {
+                    <a class="btn btn-sm btn-primary" asp-controller="Account" asp-action="Login">Login</a>
+                    <a class="btn btn-sm btn-outline-primary" asp-controller="Account" asp-action="Register">Register</a>
+                }
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row g-0">
+            <aside class="col-12 col-md-3 col-lg-2 app-sidebar border-end">
+                <nav class="p-3">
+                    <div class="nav flex-column gap-1">
+                        <a class="nav-link app-nav-link" asp-controller="Lists" asp-action="Index">To-do lists</a>
+                        <a class="nav-link app-nav-link" asp-controller="AssignedTasks" asp-action="Index">Assigned tasks</a>
+                        <a class="nav-link app-nav-link" asp-controller="Tags" asp-action="Index">Tags</a>
+                        <a class="nav-link app-nav-link" asp-controller="Search" asp-action="Index">Search</a>
+                    </div>
+                </nav>
+            </aside>
+
+            <main class="col-12 col-md-9 col-lg-10 app-content">
+                <div class="p-3 p-md-4">
+                    @if (TempData["Error"] is string error && !string.IsNullOrWhiteSpace(error))
+                    {
+                        <div class="alert alert-danger" role="alert">@error</div>
+                    }
+                    @if (TempData["Info"] is string info && !string.IsNullOrWhiteSpace(info))
+                    {
+                        <div class="alert alert-info" role="alert">@info</div>
+                    }
+
+                    @RenderBody()
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

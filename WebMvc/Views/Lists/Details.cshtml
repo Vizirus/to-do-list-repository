@@ -1,0 +1,64 @@
+﻿@using WebMvc.Api.Dtos
+@model ListDetailsViewModel
+@{
+    ViewData["Title"] = Model.List.ListName;
+}
+
+<div class="d-flex align-items-center justify-content-between mb-3">
+    <div>
+        <h2 class="mb-0">@Model.List.ListName</h2>
+        <div class="text-muted small">List #@Model.List.Id</div>
+    </div>
+    <div class="d-flex gap-2">
+        <a class="btn btn-outline-secondary" asp-action="Index">Back</a>
+        <a class="btn btn-primary" asp-controller="Tasks" asp-action="Create" asp-route-listId="@Model.List.Id">Add task</a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Tasks</h5>
+
+        @if (Model.Tasks.Items.Count == 0)
+        {
+            <div class="text-muted">No tasks in this list yet.</div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th class="text-muted">Finish</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var task in Model.Tasks.Items)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="fw-semibold">@task.TaskName</div>
+                                    <div class="text-muted small">Task #@task.Id</div>
+                                </td>
+                                <td class="text-muted">@task.TaskFinishDate.ToLocalTime().ToString("yyyy-MM-dd")</td>
+                                <td class="text-end">
+                                    <a class="btn btn-sm btn-outline-primary" asp-controller="Tasks" asp-action="Details" asp-route-id="@task.Id">Details</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-2 d-flex align-items-center justify-content-between">
+                <div class="text-muted small">Page @Model.Tasks.Page of @Model.Tasks.TotalPages • @Model.Tasks.TotalCount total</div>
+                <div class="btn-group">
+                    <a class="btn btn-sm btn-outline-secondary @(Model.Tasks.Page <= 1 ? "disabled" : "")" asp-action="Details" asp-route-id="@Model.List.Id" asp-route-page="@(Model.Tasks.Page - 1)" asp-route-pageSize="@Model.Tasks.PageSize">Prev</a>
+                    <a class="btn btn-sm btn-outline-secondary @(Model.Tasks.Page >= Model.Tasks.TotalPages ? "disabled" : "")" asp-action="Details" asp-route-id="@Model.List.Id" asp-route-page="@(Model.Tasks.Page + 1)" asp-route-pageSize="@Model.Tasks.PageSize">Next</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

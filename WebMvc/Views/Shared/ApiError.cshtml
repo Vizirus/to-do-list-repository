@@ -1,0 +1,25 @@
+﻿@model WebMvc.Models.ViewModels.ApiErrorViewModel
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">@Model.Title</h4>
+        @if (!string.IsNullOrWhiteSpace(Model.Message))
+        {
+            <p class="card-text text-muted">@Model.Message</p>
+        }
+        @if (Model.StatusCode is int code)
+        {
+            <div class="mb-2"><span class="badge badge-soft">HTTP @code</span></div>
+        }
+        @if (!string.IsNullOrWhiteSpace(Model.Details))
+        {
+            <details>
+                <summary>Details</summary>
+                <pre class="mt-2 mb-0"><code>@Model.Details</code></pre>
+            </details>
+        }
+    </div>
+</div>

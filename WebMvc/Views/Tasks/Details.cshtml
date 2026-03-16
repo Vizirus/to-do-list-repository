@@ -1,0 +1,154 @@
+﻿@using WebMvc.Api.Dtos
+@model TaskDetailsViewModel
+@{
+    ViewData["Title"] = "Task details";
+}
+
+<div class="d-flex align-items-start justify-content-between mb-3">
+    <div>
+        <h2 class="mb-1">@Model.Task.TaskName</h2>
+        <div class="text-muted small">
+            Task #@Model.Task.Id • @Model.ListName • List #@Model.Task.ListId
+        </div>
+    </div>
+    <div class="d-flex gap-2">
+        <a class="btn btn-outline-secondary" asp-controller="Lists" asp-action="Details" asp-route-id="@Model.Task.ListId">Back</a>
+        <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@Model.Task.Id">Edit</a>
+        <form asp-action="Delete" method="post" class="d-inline">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="id" value="@Model.Task.Id" />
+            <input type="hidden" name="listId" value="@Model.Task.ListId" />
+            <button class="btn btn-outline-danger" type="submit" onclick="return confirm('Delete this task?')">Delete</button>
+        </form>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-12 col-lg-7">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Description</h5>
+                <p class="mb-0">@Model.Task.TaskDescription</p>
+            </div>
+        </div>
+
+        <div class="card mt-3">
+            <div class="card-body">
+                <h5 class="card-title">Comments</h5>
+
+                <form asp-action="AddComment" method="post" class="mb-3">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="NewComment.TaskId" />
+                    <div class="mb-2">
+                        <textarea asp-for="NewComment.CommentText" class="form-control" rows="2" placeholder="Add a comment..."></textarea>
+                        <span asp-validation-for="NewComment.CommentText" class="text-danger"></span>
+                    </div>
+                    <button class="btn btn-sm btn-primary" type="submit">Add comment</button>
+                </form>
+
+                @if (Model.Comments.Count == 0)
+                {
+                    <div class="text-muted">No comments yet.</div>
+                }
+                else
+                {
+                    <div class="d-flex flex-column gap-2">
+                        @foreach (var c in Model.Comments)
+                        {
+                            <div class="border rounded-3 p-2 bg-white">
+                                <div class="small text-muted">User #@c.UserId • @c.CreatedDate.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</div>
+                                <div>@c.CommentText</div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-lg-5">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Properties</h5>
+
+                <div class="row">
+                    <div class="col-6">
+                        <div class="text-muted small">Start</div>
+                        <div>@Model.Task.TaskStartDate.ToLocalTime().ToString("yyyy-MM-dd")</div>
+                    </div>
+                    <div class="col-6">
+                        <div class="text-muted small">Finish</div>
+                        <div>@Model.Task.TaskFinishDate.ToLocalTime().ToString("yyyy-MM-dd")</div>
+                    </div>
+                </div>
+
+                <hr />
+
+                <form asp-action="UpdateStatus" method="post" class="mb-3">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="id" value="@Model.Task.Id" />
+                    <label class="form-label">Status</label>
+                    <div class="d-flex gap-2">
+                        <select class="form-select" name="statusId" asp-items="Model.Statuses"></select>
+                        <button class="btn btn-outline-primary" type="submit">Update</button>
+                    </div>
+                </form>
+
+                <form asp-action="Reassign" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="id" value="@Model.Task.Id" />
+                    <label class="form-label">Assignee</label>
+                    <div class="d-flex gap-2">
+                        <select class="form-select" name="assigndUserId" asp-items="Model.Users"></select>
+                        <button class="btn btn-outline-primary" type="submit">Reassign</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mt-3">
+            <div class="card-body">
+                <h5 class="card-title">Tags</h5>
+
+                @if (Model.Tags.Count == 0)
+                {
+                    <div class="text-muted mb-2">No tags assigned.</div>
+                }
+                else
+                {
+                    <div class="d-flex flex-wrap gap-2 mb-2">
+                        @foreach (var (link, tag) in Model.Tags)
+                        {
+                            <span class="badge badge-soft">
+                                @tag.Name
+                                <form asp-action="RemoveTag" method="post" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="taskId" value="@Model.Task.Id" />
+                                    <input type="hidden" name="taskTagId" value="@link.Id" />
+                                    <button type="submit" class="btn btn-sm btn-link p-0 ms-1" title="Remove" style="text-decoration:none;">×</button>
+                                </form>
+                            </span>
+                        }
+                    </div>
+                }
+
+                <form asp-action="AddTag" method="post" class="mt-2">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="taskId" value="@Model.Task.Id" />
+                    <div class="d-flex gap-2">
+                        <select class="form-select" name="tagId" asp-items="Model.AllTags"></select>
+                        <button class="btn btn-outline-success" type="submit">Add</button>
+                    </div>
+                </form>
+
+                <div class="small text-muted mt-2">
+                    Tip: create new tags in <a asp-controller="Tags" asp-action="Index">Tags</a>.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
