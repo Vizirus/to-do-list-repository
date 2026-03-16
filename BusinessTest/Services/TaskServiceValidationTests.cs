@@ -1,4 +1,5 @@
 using AutoMapper;
+using BusinessLayer.BusinessLayer.Models;
 using BusinessLayer.BusinessLayer.Services;
 using DataLayer.DataLayer.Interfaces;
 using Moq;
@@ -31,8 +32,7 @@ public class TaskServiceValidationTests
             taskDescription: "Desc",
             taskStartDate: DateTime.UtcNow,
             taskFinishDate: DateTime.UtcNow.AddDays(1),
-            statusId: 1,
-            assigndUserId: 1);
+            statusId: 1);
 
         var result = await service.AddAsync(model);
 
@@ -58,8 +58,7 @@ public class TaskServiceValidationTests
             taskDescription: "Desc",
             taskStartDate: DateTime.UtcNow,
             taskFinishDate: DateTime.UtcNow.AddDays(1),
-            statusId: 1,
-            assigndUserId: 1);
+            statusId: 1);
 
         var result = await service.AddAsync(model);
 
@@ -91,8 +90,7 @@ public class TaskServiceValidationTests
             taskDescription: "Desc",
             taskStartDate: new DateTime(2026, 3, 15, 0, 0, 0, DateTimeKind.Utc),
             taskFinishDate: new DateTime(2026, 3, 14, 0, 0, 0, DateTimeKind.Utc),
-            statusId: 1,
-            assigndUserId: 1);
+            statusId: 1);
 
         var result = await service.UpdateAsync(model);
 
@@ -117,8 +115,7 @@ public class TaskServiceValidationTests
             taskDescription: "Desc",
             taskStartDate: DateTime.UtcNow,
             taskFinishDate: DateTime.UtcNow.AddDays(1),
-            statusId: 1,
-            assigndUserId: 1);
+            statusId: 1);
 
         var result = await service.AddAsync(model);
 

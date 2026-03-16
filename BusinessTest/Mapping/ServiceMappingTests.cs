@@ -1,4 +1,5 @@
 using AutoMapper;
+using BusinessLayer.BusinessLayer.Models;
 using BusinessTest.TestInfrastructure;
 using DataLayer.DataLayer.Entities;
 using WebApi.BusinessLayer.Models;
@@ -29,7 +30,7 @@ public class ServiceMappingTests
     [Fact]
     public void TaskModelToTaskEntityShouldMap()
     {
-        var model = new TaskModel(0, 1, "Name", "Desc", DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1, 1);
+        var model = new TaskModel(0, 1, "Name", "Desc", DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1);
         var entity = this.mapper.Map<TaskEntity>(model);
         Assert.NotNull(entity);
     }

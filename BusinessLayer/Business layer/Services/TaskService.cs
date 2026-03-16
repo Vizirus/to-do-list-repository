@@ -24,10 +24,10 @@ public class TaskService : ITaskService
             !string.IsNullOrEmpty(model.TaskName) &&
             !string.IsNullOrEmpty(model.TaskDescription) &&
             model.StatusId > 0 &&
-            model.AssigndUserId > 0 &&
             DateTime.Compare(model.TaskStartDate, new DateTime(1920, 1, 1, 1, 1, 1, kind: DateTimeKind.Utc)) > 0 &&
             DateTime.Compare(model.TaskFinishDate, new DateTime(1920, 1, 1, 1, 1, 1, kind: DateTimeKind.Utc)) > 0 &&
-            DateTime.Compare(model.TaskStartDate, DateTime.Now) < 0)
+            DateTime.Compare(model.TaskStartDate, DateTime.Now) < 0 &&
+            DateTime.Compare(model.TaskStartDate, model.TaskFinishDate) <= 0)
         {
             await this.unitOfWork.tasksRepository.AddAsync(this.mapper.Map<DataLayer.DataLayer.Entities.Task>(model));
             await this.unitOfWork.SaveAsync();
@@ -75,9 +75,10 @@ public class TaskService : ITaskService
             model.ListId > 0 &&
             !string.IsNullOrEmpty(model.TaskName) &&
             !string.IsNullOrEmpty(model.TaskDescription) &&
-             DateTime.Compare(model.TaskStartDate, new DateTime(1920, 1, 1, 1, 1, 1, kind: DateTimeKind.Utc)) > 0 &&
+            DateTime.Compare(model.TaskStartDate, new DateTime(1920, 1, 1, 1, 1, 1, kind: DateTimeKind.Utc)) > 0 &&
             DateTime.Compare(model.TaskFinishDate, new DateTime(1920, 1, 1, 1, 1, 1, kind: DateTimeKind.Utc)) > 0 &&
-            DateTime.Compare(model.TaskStartDate, DateTime.Now) < 0)
+            DateTime.Compare(model.TaskStartDate, DateTime.Now) < 0 &&
+            DateTime.Compare(model.TaskStartDate, model.TaskFinishDate) <= 0)
         {
             this.unitOfWork.tasksRepository.Update(this.mapper.Map<DataLayer.DataLayer.Entities.Task>(model));
             await this.unitOfWork.SaveAsync();

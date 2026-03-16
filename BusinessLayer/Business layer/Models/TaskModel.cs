@@ -4,12 +4,6 @@ namespace BusinessLayer.BusinessLayer.Models;
 
 public class TaskModel
 {
-    public TaskModel(int id, int listId, string taskName, string taskDescription, DateTime taskStartDate, DateTime taskFinishDate, int statusId, int assigndUserId)
-        : this(id, listId, taskName, taskDescription, taskStartDate, taskFinishDate, statusId)
-    {
-        this.AssigndUserId = assigndUserId;
-    }
-
     public TaskModel(int id, int listId, string taskName, string taskDescription, DateTime taskStartDate, DateTime taskFinishDate, int statusId)
     {
         this.Id = id;
