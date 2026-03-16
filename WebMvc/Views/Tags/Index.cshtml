@@ -1,4 +1,4 @@
-@model TagsIndexViewModel
+﻿@model TagsIndexViewModel
 @{
     ViewData["Title"] = "Tags";
 }
@@ -18,8 +18,8 @@
                 <form asp-action="Create" method="post" class="mt-3">
                     @Html.AntiForgeryToken()
                     <div class="mb-3">
-                        <label asp-for="NewTag.Name" id="NewTag.Name" class="form-label">Name</label>
-                        <input asp-for="NewTag.Name" class="form-control" />
+                        <label asp-for="NewTag.Name" for="NewTag_Name" class="form-label">Name</label>
+                        <input asp-for="NewTag.Name" id="NewTag_Name" class="form-control" />
                         <span asp-validation-for="NewTag.Name" class="text-danger"></span>
                     </div>
                     <button class="btn btn-success" type="submit">Create</button>

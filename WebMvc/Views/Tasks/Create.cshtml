@@ -1,4 +1,4 @@
-@using Microsoft.AspNetCore.Mvc.Rendering
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
 @model TaskEditViewModel
 @{
     ViewData["Title"] = "New task";
@@ -14,39 +14,39 @@
             <input type="hidden" asp-for="ListId" />
 
             <div class="mb-3">
-                <label asp-for="TaskName" id="TaskName" class="form-label">Task name</label>
-                <input asp-for="TaskName" class="form-control" />
+                <label asp-for="TaskName" for="TaskName" class="form-label">Task name</label>
+                <input asp-for="TaskName" id="TaskName" class="form-control" />
                 <span asp-validation-for="TaskName" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
-                <label asp-for="TaskDescription" id="TaskDescription" class="form-label">askDescription</label>
-                <textarea asp-for="TaskDescription" class="form-control" rows="4"></textarea>
+                <label asp-for="TaskDescription" for="TaskDescription" class="form-label">Description</label>
+                <textarea asp-for="TaskDescription" id="TaskDescription" class="form-control" rows="4"></textarea>
                 <span asp-validation-for="TaskDescription" class="text-danger"></span>
             </div>
 
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label asp-for="TaskStartDate" id="TaskStartDate" class=" form-label">TaskStartDate</label>
-                    <input asp-for="TaskStartDate" class="form-control" />
+                    <label asp-for="TaskStartDate" for="TaskStartDate" class="form-label">Start date</label>
+                    <input asp-for="TaskStartDate" id="TaskStartDate" class="form-control" />
                     <span asp-validation-for="TaskStartDate" class="text-danger"></span>
                 </div>
                 <div class="col-md-6 mb-3">
-                    <label asp-for="TaskFinishDate" id="TaskFinishDate" class="form-label">Task name</label>
-                    <input asp-for="TaskFinishDate" class="form-control" />
+                    <label asp-for="TaskFinishDate" for="TaskFinishDate" class="form-label">Finish date</label>
+                    <input asp-for="TaskFinishDate" id="TaskFinishDate" class="form-control" />
                     <span asp-validation-for="TaskFinishDate" class="text-danger"></span>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label asp-for="StatusId" id="StatusId" class="form-label">StatusId</label>
-                    <select asp-for="StatusId" class="form-select" asp-items="statuses"></select>
+                    <label asp-for="StatusId" for="StatusId" class="form-label">Status</label>
+                    <select asp-for="StatusId" id="StatusId" class="form-select" asp-items="statuses"></select>
                     <span asp-validation-for="StatusId" class="text-danger"></span>
                 </div>
                 <div class="col-md-6 mb-3">
-                    <label asp-for="AssigndUserId" id="AssigndUserId" class="form-label">AssigndUserId</label>
-                    <select asp-for="AssigndUserId" class="form-select" asp-items="users"></select>
+                    <label asp-for="AssigndUserId" for="AssigndUserId" class="form-label">Assignee</label>
+                    <select asp-for="AssigndUserId" id="AssigndUserId" class="form-select" asp-items="users"></select>
                     <span asp-validation-for="AssigndUserId" class="text-danger"></span>
                 </div>
             </div>
@@ -64,3 +64,4 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+

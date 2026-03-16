@@ -1,4 +1,4 @@
-@using WebMvc.Api.Dtos
+﻿@using WebMvc.Api.Dtos
 @model ShareListViewModel
 @{
     ViewData["Title"] = "Share list";
@@ -13,8 +13,8 @@
             <input type="hidden" asp-for="ToDoListId" />
 
             <div class="mb-3">
-                <label asp-for="AssignedUserId" id="AssignedUserId" class="form-label">Assigned user id</label>
-                <select asp-for="AssignedUserId" class="form-select">
+                <label asp-for="AssignedUserId" for="AssignedUserId" class="form-label">Share with user</label>
+                <select asp-for="AssignedUserId" id="AssignedUserId" class="form-select">
                     <option value="">Select user…</option>
                     @foreach (var u in users)
                     {
