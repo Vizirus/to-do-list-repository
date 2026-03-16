@@ -13,7 +13,7 @@
             <input type="hidden" asp-for="ToDoListId" />
 
             <div class="mb-3">
-                <label asp-for="AssignedUserId" class="form-label">Assigned user id</label>
+                <label asp-for="AssignedUserId" id="AssignedUserId" class="form-label">Assigned user id</label>
                 <select asp-for="AssignedUserId" class="form-select">
                     <option value="">Select user…</option>
                     @foreach (var u in users)
