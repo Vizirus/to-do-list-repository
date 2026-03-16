@@ -156,7 +156,7 @@ public sealed class TodoApiClient : ITodoApiClient
         }
         catch (OperationCanceledException)
         {
-            throw;
+            throw new OperationCanceledException();
         }
         catch (ObjectDisposedException)
         {

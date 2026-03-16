@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using WebMvc.Api;
@@ -34,7 +34,7 @@ public sealed class ListsController : Controller
         var apiUserId = await this.currentUser.GetApiUserIdAsync();
         if (apiUserId is null)
         {
-            return this.ApiUnavailable("Cannot resolve your API user id.");
+            return this.ApiUnavailable("Cannot resolve your API user id !");
         }
 
         try
@@ -69,12 +69,12 @@ public sealed class ListsController : Controller
         catch (HttpRequestException ex)
         {
             this.logger.LogWarning(ex, "HTTP error in Lists/Index");
-            return this.ApiUnavailable("Cannot reach the WebApi.", ex);
+            return this.ApiUnavailable("Cannot reach the WebApi. ", ex);
         }
         catch (TaskCanceledException ex)
         {
             this.logger.LogWarning(ex, "Todo API request timed out in Lists/Index");
-            return this.ApiUnavailable("The WebApi request timed out.", ex);
+            return this.ApiUnavailable("The WebApi request timed out ", ex);
         }
     }
 
@@ -84,7 +84,7 @@ public sealed class ListsController : Controller
         var apiUserId = await this.currentUser.GetApiUserIdAsync();
         if (apiUserId is null)
         {
-            return this.ApiUnavailable("Cannot resolve your API user id.");
+            return this.ApiUnavailable("Cannot resolve your API user id!");
         }
 
         try
@@ -123,12 +123,12 @@ public sealed class ListsController : Controller
         catch (HttpRequestException ex)
         {
             this.logger.LogWarning(ex, "HTTP error in Lists/Details");
-            return this.ApiUnavailable("Cannot reach the WebApi.", ex);
+            return this.ApiUnavailable("Cannot reach the WebApi !", ex);
         }
         catch (TaskCanceledException ex)
         {
             this.logger.LogWarning(ex, "Todo API request timed out in Lists/Details");
-            return this.ApiUnavailable("The WebApi request timed out.", ex);
+            return this.ApiUnavailable("The WebApi request timed out ", ex);
         }
     }
 
@@ -148,7 +148,7 @@ public sealed class ListsController : Controller
         var apiUserId = await this.currentUser.GetApiUserIdAsync();
         if (apiUserId is null)
         {
-            return this.ApiUnavailable("Cannot resolve your API user id.");
+            return this.ApiUnavailable("Cannot resolve your API user id!");
         }
 
         try
@@ -175,12 +175,12 @@ public sealed class ListsController : Controller
         catch (HttpRequestException ex)
         {
             this.logger.LogWarning(ex, "HTTP error in Lists/Create");
-            return this.ApiUnavailable("Cannot reach the WebApi.", ex);
+            return this.ApiUnavailable("Cannot reach the WebApi. ", ex);
         }
         catch (TaskCanceledException ex)
         {
             this.logger.LogWarning(ex, "Todo API request timed out in Lists/Create");
-            return this.ApiUnavailable("The WebApi request timed out.", ex);
+            return this.ApiUnavailable("The WebApi request timed out .", ex);
         }
     }
 
@@ -190,7 +190,7 @@ public sealed class ListsController : Controller
         var apiUserId = await this.currentUser.GetApiUserIdAsync();
         if (apiUserId is null)
         {
-            return this.ApiUnavailable("Cannot resolve your API user id.");
+            return this.ApiUnavailable("Cannot resolve your API user id!");
         }
 
         try
@@ -216,12 +216,12 @@ public sealed class ListsController : Controller
         catch (HttpRequestException ex)
         {
             this.logger.LogWarning(ex, "HTTP error in Lists/Edit(GET)");
-            return this.ApiUnavailable("Cannot reach the WebApi.", ex);
+            return this.ApiUnavailable("Cannot reach the WebApi .", ex);
         }
         catch (TaskCanceledException ex)
         {
             this.logger.LogWarning(ex, "Todo API request timed out in Lists/Edit(GET)");
-            return this.ApiUnavailable("The WebApi request timed out.", ex);
+            return this.ApiUnavailable("The WebApi request timed out. ", ex);
         }
     }
 
@@ -237,7 +237,7 @@ public sealed class ListsController : Controller
         var apiUserId = await this.currentUser.GetApiUserIdAsync();
         if (apiUserId is null)
         {
-            return this.ApiUnavailable("Cannot resolve your API user id.");
+            return this.ApiUnavailable("Cannot resolve your API user id !");
         }
 
         try
@@ -265,12 +265,12 @@ public sealed class ListsController : Controller
         catch (HttpRequestException ex)
         {
             this.logger.LogWarning(ex, "HTTP error in Lists/Edit(POST)");
-            return this.ApiUnavailable("Cannot reach the WebApi.", ex);
+            return this.ApiUnavailable("Cannot reach the WebApi .", ex);
         }
         catch (TaskCanceledException ex)
         {
             this.logger.LogWarning(ex, "Todo API request timed out in Lists/Edit(POST)");
-            return this.ApiUnavailable("The WebApi request timed out.", ex);
+            return this.ApiUnavailable("The WebApi request timed out. ", ex);
         }
     }
 
@@ -388,12 +388,15 @@ public sealed class ListsController : Controller
             }
             catch (TodoApiException)
             {
+                throw new TodoApiException();
             }
             catch (HttpRequestException)
             {
+                throw new HttpRequestException();
             }
             catch (TaskCanceledException)
             {
+                throw new TaskCanceledException();
             }
             return this.View(model);
         }

@@ -1,6 +1,6 @@
 using BusinessLayer.BusinessLayer.Interfaces;
+using BusinessLayer.BusinessLayer.Models;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.BusinessLayer.Models;
 
 namespace WebApi.Controllers;
 

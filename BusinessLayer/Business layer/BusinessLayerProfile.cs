@@ -1,4 +1,5 @@
 using AutoMapper;
+using BusinessLayer.BusinessLayer.Models;
 using DataLayer.DataLayer.Entities;
 using WebApi.BusinessLayer.Models;
 

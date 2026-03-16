@@ -1,5 +1,5 @@
 using DataLayer.DataLayer.Interfaces;
-using WebApi.BusinessLayer.Models;
+using BusinessLayer.BusinessLayer.Models;
 using AutoMapper;
 using BusinessLayer.BusinessLayer.Interfaces;
 

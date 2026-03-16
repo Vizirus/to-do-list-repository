@@ -1,4 +1,4 @@
-﻿@using WebMvc.Api.Dtos
+@using WebMvc.Api.Dtos
 @model TaskDetailsViewModel
 @{
     ViewData["Title"] = "Task details";
@@ -87,9 +87,9 @@
                 <form asp-action="UpdateStatus" method="post" class="mb-3">
                     @Html.AntiForgeryToken()
                     <input type="hidden" name="id" value="@Model.Task.Id" />
-                    <label class="form-label">Status</label>
+                    <label class="form-label" for="statusId">Status</label>
                     <div class="d-flex gap-2">
-                        <select class="form-select" name="statusId" asp-items="Model.Statuses"></select>
+                        <select class="form-select" id="statusId" name="statusId" asp-items="Model.Statuses"></select>
                         <button class="btn btn-outline-primary" type="submit">Update</button>
                     </div>
                 </form>
@@ -97,7 +97,7 @@
                 <form asp-action="Reassign" method="post">
                     @Html.AntiForgeryToken()
                     <input type="hidden" name="id" value="@Model.Task.Id" />
-                    <label class="form-label">Assignee</label>
+                    <label class="form-label" id="formLabel">Assignee</label>
                     <div class="d-flex gap-2">
                         <select class="form-select" name="assigndUserId" asp-items="Model.Users"></select>
                         <button class="btn btn-outline-primary" type="submit">Reassign</button>

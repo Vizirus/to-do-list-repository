@@ -1,10 +1,9 @@
-﻿using System.Collections.Concurrent;
+using System.Collections.Concurrent;
 using Microsoft.AspNetCore.Identity;
 
 namespace WebMvc.Identity;
 
 public sealed class InMemoryUserStore :
-    IUserStore<ApplicationUser>,
     IUserPasswordStore<ApplicationUser>,
     IUserEmailStore<ApplicationUser>,
     IUserSecurityStampStore<ApplicationUser>,
