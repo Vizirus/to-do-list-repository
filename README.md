@@ -29,7 +29,7 @@ This application was developed as a final project for the **EPAM Systems .NET Fu
 - Clone the prject using git clone **repo link**
 - Run Web API first: you could do this by navigating to WepApi foloder and running "dotent run" command
 - Run Web interface: you could do this by navigating to WepMvc foloder and running "dotent run" command
-**Here we go! It works! Enjoy the application!**
+<p>**Here we go! It works! Enjoy the application!**</p>
 
 ## Basic usage showcase
 
